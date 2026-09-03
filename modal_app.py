@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import json
+import platform
+import subprocess
+import time
 from pathlib import Path
 from typing import Any
 
@@ -16,14 +19,14 @@ CACHE_DIR = "/cache/huggingface"
 app = modal.App(APP_NAME)
 cache = modal.Volume.from_name("elicitation-experiments-hf-cache", create_if_missing=True)
 image = (
-    modal.Image.from_registry("nvidia/cuda:12.8.1-devel-ubuntu22.04", add_python="3.11")
+    modal.Image.from_registry("nvidia/cuda:13.0.1-devel-ubuntu22.04", add_python="3.12")
     .entrypoint([])
     .apt_install("git")
     .uv_pip_install(
-        "vllm==0.11.0",
-        "transformers>=4.51,<5",
+        "vllm==0.28.0",
+        "transformers==5.5.3",
         "huggingface-hub>=0.34",
-        extra_options="--torch-backend=auto",
+        extra_options="--torch-backend=cu130",
     )
     .env(
         {
@@ -34,14 +37,16 @@ image = (
 )
 
 
-def _prompt(tokenizer: Any, record: dict[str, Any]) -> tuple[str, int]:
+def _prompt(
+    tokenizer: Any, record: dict[str, Any], enable_thinking: bool = True
+) -> tuple[str, int]:
     messages = [*record["messages"], {"role": "user", "content": record["followup"]}]
     try:
         text = tokenizer.apply_chat_template(
             messages,
             tokenize=False,
             add_generation_prompt=True,
-            enable_thinking=True,
+            enable_thinking=enable_thinking,
         )
     except TypeError:
         text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
@@ -64,9 +69,30 @@ def run_batch(
     max_new_tokens: int = 512,
     temperature: float = 0.6,
     top_p: float = 0.95,
+    enable_thinking: bool = True,
 ) -> list[dict[str, Any]]:
+    import torch
+    import transformers
+    import vllm
     from transformers import AutoTokenizer
     from vllm import LLM, SamplingParams
+
+    started_at = time.perf_counter()
+    gpu_name = subprocess.run(
+        ["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+    ).stdout.strip()
+    runtime = {
+        "gpu_name": gpu_name,
+        "python_version": str(platform.python_version()),
+        "torch_version": str(torch.__version__),
+        "cuda_version": str(torch.version.cuda),
+        "transformers_version": str(transformers.__version__),
+        "vllm_version": str(vllm.__version__),
+    }
+    print(f"Runtime provenance: {json.dumps(runtime, sort_keys=True)}")
 
     tokenizer = AutoTokenizer.from_pretrained(
         model_id, revision=model_revision, trust_remote_code=False
@@ -77,7 +103,7 @@ def run_batch(
     rejected: list[dict[str, Any]] = []
 
     for record in records:
-        prompt, count = _prompt(tokenizer, record)
+        prompt, count = _prompt(tokenizer, record, enable_thinking=enable_thinking)
         if count + max_new_tokens > max_model_len:
             rejected.append(
                 {
@@ -113,6 +139,7 @@ def run_batch(
         for record in kept
     ]
     outputs = llm.generate(prompts, params, use_tqdm=True)
+    runtime["batch_elapsed_seconds"] = round(time.perf_counter() - started_at, 3)
 
     completed: list[dict[str, Any]] = []
     for record, count, output in zip(kept, prompt_tokens, outputs, strict=True):
@@ -131,13 +158,17 @@ def run_batch(
                 "temperature": temperature,
                 "top_p": top_p,
                 "max_new_tokens": max_new_tokens,
+                "enable_thinking": enable_thinking,
                 "prompt_tokens": count,
                 "completion_tokens": len(choice.token_ids),
                 "finish_reason": choice.finish_reason,
                 "status": "completed",
                 "response": choice.text,
+                "runtime": runtime,
             }
         )
+    for row in rejected:
+        row["runtime"] = runtime
     cache.commit()
     return completed + rejected
 
@@ -161,6 +192,7 @@ def main(
     limit: int = 0,
     model_id: str = MODEL_ID,
     max_new_tokens: int = 512,
+    enable_thinking: bool = True,
 ) -> None:
     """Run pending records only, making interrupted launches safely resumable."""
     manifest_path = Path(manifest)
@@ -174,7 +206,12 @@ def main(
     if not pending:
         print("No pending records.")
         return
-    fresh = run_batch.remote(pending, model_id=model_id, max_new_tokens=max_new_tokens)
+    fresh = run_batch.remote(
+        pending,
+        model_id=model_id,
+        max_new_tokens=max_new_tokens,
+        enable_thinking=enable_thinking,
+    )
     by_id = {row["record_id"]: row for row in existing}
     by_id.update({row["record_id"]: row for row in fresh})
     merged = [by_id[key] for key in sorted(by_id)]

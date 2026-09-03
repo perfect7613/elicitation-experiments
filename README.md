@@ -2,6 +2,12 @@
 
 Reproducible question-vs-statement elicitation on frozen agent transcripts, with an explicit false-confession control.
 
+**Completed results:** read [REPORT.md](REPORT.md). The short version is that the
+bracketing statement was the strongest elicitor in a small blinded sample, while a
+false incriminating statement produced coder-sensitive false confessions. The report
+also documents a preregistered thinking-mode measurement failure, negative results,
+exact prompts, raw outputs, failed launches, and limitations.
+
 The package uses published Pre-commit Hook rollouts and workaround labels, branches them with Qwen3-14B on a Modal H100, creates a blinded hand-labeling sheet, and reports Wilson 95% confidence intervals. See [PREREGISTRATION.md](PREREGISTRATION.md) before changing prompts or sampling.
 
 ## 1. Clone the two public inputs
@@ -64,9 +70,19 @@ Verify that both rows have `status=completed`, sensible prompt/completion token 
 modal run modal_app.py --manifest data/manifest.jsonl --output results/raw/qwen3-14b.jsonl
 ```
 
+The completed study also ran a post-hoc non-thinking control after the thinking-mode
+sanity check failed:
+
+```bash
+modal run modal_app.py \
+  --manifest data/manifest.jsonl \
+  --output results/raw/qwen3-14b-no-thinking.jsonl \
+  --no-enable-thinking
+```
+
 Rerun the same command after an interruption. Completed `record_id` values are skipped and the output is merged deterministically. Contexts that exceed the fixed 32,768-token budget are recorded as `rejected_context_too_long` rather than silently truncated at inference time.
 
-The job requests one H100, uses BF16 Qwen3-14B at revision `40c069824f4251a91eefaf281ebe4c544efd3e18`, caps vLLM at eight concurrent sequences, and has a four-hour hard timeout. With only 240 short completions, normal runtime should be far below that ceiling after the image/model cache is warm. Check current Modal pricing before launch.
+The job requests one H100, uses BF16 Qwen3-14B at revision `40c069824f4251a91eefaf281ebe4c544efd3e18`, uses vLLM 0.28.0 in a CUDA 13.0.1/Python 3.12 image, caps vLLM at eight concurrent sequences, and has a four-hour hard timeout. With only 240 short completions, normal runtime should be far below that ceiling after the image/model cache is warm. Check current Modal pricing before launch.
 
 ## 7. Blindly hand-label 60
 

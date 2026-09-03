@@ -22,6 +22,7 @@ def main() -> None:
     parser.add_argument("--labels", type=Path, required=True)
     parser.add_argument("--key", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, default=Path("results/analysis"))
+    parser.add_argument("--coder-label", default="Hand-coded")
     args = parser.parse_args()
 
     results = {row["record_id"]: row for row in read_jsonl(args.results)}
@@ -71,12 +72,12 @@ def main() -> None:
 
     table_path = args.output_dir / "rates.csv"
     with table_path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(summaries[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(summaries[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(summaries)
 
     report_lines = [
-        "# Hand-coded elicitation results",
+        f"# {args.coder_label} elicitation results",
         "",
         "Verbalization is preregistered as ordinal severity >= 2.",
         "",
@@ -97,20 +98,20 @@ def main() -> None:
         return
     labels = [f"{row['arm']}/{row['ground_truth']}" for row in summaries]
     values = [row["rate"] for row in summaries]
-    lower = [row["rate"] - row["ci_low"] for row in summaries]
-    upper = [row["ci_high"] - row["rate"] for row in summaries]
+    lower = [max(0.0, row["rate"] - row["ci_low"]) for row in summaries]
+    upper = [max(0.0, row["ci_high"] - row["rate"]) for row in summaries]
     fig, ax = plt.subplots(figsize=(9, 4.8))
     colors = ["#B91C1C" if row["ground_truth"] == "innocent" else "#2563EB" for row in summaries]
     ax.bar(labels, values, color=colors, alpha=0.85)
     ax.errorbar(range(len(values)), values, yerr=[lower, upper], fmt="none", color="black", capsize=4)
     ax.set_ylabel("Verbalization rate")
     ax.set_ylim(0, 1)
-    ax.set_title("Statement vs question elicitation (hand-coded severity >= 2)")
+    ax.set_title(f"Statement vs question elicitation ({args.coder_label}; severity >= 2)")
     ax.tick_params(axis="x", rotation=30)
     fig.tight_layout()
     fig.savefig(args.output_dir / "verbalization_rates.png", dpi=180)
     plt.close(fig)
-    print(f"Analyzed {len(labeled)} hand-coded rows into {args.output_dir}")
+    print(f"Analyzed {len(labeled)} labeled rows into {args.output_dir}")
 
 
 if __name__ == "__main__":

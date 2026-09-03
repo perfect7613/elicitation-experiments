@@ -1,0 +1,30 @@
+{
+  "manifest": {
+    "path": "data/manifest.jsonl",
+    "sha256": "6b7a90a1d98ff1e2999339d57aec815e394770196dfbd63513651025d8c50568",
+    "rows": 240,
+    "unique_record_ids": 240
+  },
+  "runs": [
+    {
+      "name": "thinking",
+      "path": "results/raw/qwen3-14b.jsonl",
+      "sha256": "8df3ab7656388568bc017aaea21c516973092f84a749c9c35ef036faea9cbcbd",
+      "rows": 240,
+      "unique_record_ids": 240,
+      "completed": 240,
+      "nonempty_response_fields": 240
+    },
+    {
+      "name": "no_thinking",
+      "path": "results/raw/qwen3-14b-no-thinking.jsonl",
+      "sha256": "c612e8b9adf02bfd2d5e4ceb5d25e6fd960544e97e777ab515b87defc46f0fe1",
+      "rows": 240,
+      "unique_record_ids": 240,
+      "completed": 240,
+      "nonempty_response_fields": 240
+    }
+  ],
+  "no_thinking_minus_thinking_prompt_tokens_per_record": 4,
+  "validation_passed": true
+}

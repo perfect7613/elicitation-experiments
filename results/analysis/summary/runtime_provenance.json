@@ -1,0 +1,26 @@
+[
+  {
+    "row_count": 240,
+    "runtime": {
+      "batch_elapsed_seconds": 930.082,
+      "cuda_version": "13.0",
+      "gpu_name": "NVIDIA H100 80GB HBM3",
+      "python_version": "3.12.1",
+      "torch_version": "2.13.0+cu130",
+      "transformers_version": "5.5.3",
+      "vllm_version": "0.28.0"
+    }
+  },
+  {
+    "row_count": 240,
+    "runtime": {
+      "batch_elapsed_seconds": 425.049,
+      "cuda_version": "13.0",
+      "gpu_name": "NVIDIA H100 80GB HBM3",
+      "python_version": "3.12.1",
+      "torch_version": "2.13.0+cu130",
+      "transformers_version": "5.5.3",
+      "vllm_version": "0.28.0"
+    }
+  }
+]

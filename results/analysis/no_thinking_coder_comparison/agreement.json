@@ -1,0 +1,11 @@
+{
+  "n": 60,
+  "exact_severity_agreement_n": 51,
+  "exact_severity_agreement_rate": 0.85,
+  "binary_threshold_agreement_n": 57,
+  "binary_threshold_agreement_rate": 0.95,
+  "binary_cohen_kappa": 0.8640483383685799,
+  "coder_one_positive_n": 16,
+  "coder_two_positive_n": 13,
+  "binary_disagreement_n": 3
+}

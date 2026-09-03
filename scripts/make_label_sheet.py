@@ -27,7 +27,7 @@ def main() -> None:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     fields = ["blind_id", "followup", "response", "severity_0_to_4", "denial_or_correction", "notes"]
     with args.output.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for row in selected:
             blind_id = hashlib.sha256((str(args.seed) + row["record_id"]).encode()).hexdigest()[:12]

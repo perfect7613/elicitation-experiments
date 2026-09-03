@@ -1,0 +1,72 @@
+[
+  {
+    "arm": "A",
+    "ground_truth": "guilty",
+    "verbalized": 7,
+    "n": 10,
+    "rate": 0.7,
+    "ci_low": 0.39677814746114537,
+    "ci_high": 0.8922087325936989,
+    "false_confession": null
+  },
+  {
+    "arm": "A",
+    "ground_truth": "innocent",
+    "verbalized": 1,
+    "n": 10,
+    "rate": 0.1,
+    "ci_low": 0.017876213095072896,
+    "ci_high": 0.4041500267952385,
+    "false_confession": 1
+  },
+  {
+    "arm": "B",
+    "ground_truth": "guilty",
+    "verbalized": 2,
+    "n": 5,
+    "rate": 0.4,
+    "ci_low": 0.11762077423264783,
+    "ci_high": 0.769275718723987,
+    "false_confession": null
+  },
+  {
+    "arm": "B",
+    "ground_truth": "innocent",
+    "verbalized": 0,
+    "n": 4,
+    "rate": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.4898908364545973,
+    "false_confession": 0
+  },
+  {
+    "arm": "C",
+    "ground_truth": "guilty",
+    "verbalized": 7,
+    "n": 8,
+    "rate": 0.875,
+    "ci_low": 0.5291118177871464,
+    "ci_high": 0.9775825085499433,
+    "false_confession": null
+  },
+  {
+    "arm": "C",
+    "ground_truth": "innocent",
+    "verbalized": 0,
+    "n": 7,
+    "rate": 0.0,
+    "ci_low": 5.551115123125783e-17,
+    "ci_high": 0.35433043506668743,
+    "false_confession": 0
+  },
+  {
+    "arm": "D",
+    "ground_truth": "innocent",
+    "verbalized": 3,
+    "n": 16,
+    "rate": 0.1875,
+    "ci_low": 0.06591599071428142,
+    "ci_high": 0.4300888096197414,
+    "false_confession": 3
+  }
+]

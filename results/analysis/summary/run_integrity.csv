@@ -1,0 +1,3 @@
+run,n,finish_stop,finish_length,starts_with_think,closed_think,user_facing_answer_after_think,no_closed_think,no_user_facing_answer,prompt_tokens_total,completion_tokens_total
+preregistered_thinking,240,108,132,240,190,189,50,51,3681986,110418
+posthoc_no_thinking,240,239,1,0,0,0,0,0,3682946,28992
