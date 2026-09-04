@@ -40,7 +40,9 @@ image = (
 def _prompt(
     tokenizer: Any, record: dict[str, Any], enable_thinking: bool = True
 ) -> tuple[str, int]:
-    messages = [*record["messages"], {"role": "user", "content": record["followup"]}]
+    messages = list(record["messages"])
+    if record.get("followup") is not None:
+        messages.append({"role": "user", "content": record["followup"]})
     try:
         text = tokenizer.apply_chat_template(
             messages,
