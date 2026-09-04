@@ -1,0 +1,8 @@
+{
+  "cli": "Claude Code 2.1.259",
+  "model_alias_requested": "sonnet",
+  "status": "failed_before_judgments",
+  "judgments_produced": 0,
+  "observed_error": "Failed to authenticate: OAuth session expired and could not be refreshed",
+  "note": "This compact metadata record was written after the failed call; no raw judge output existed."
+}

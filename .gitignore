@@ -6,3 +6,4 @@ data/manifest.jsonl
 data/phase2_manifest.jsonl
 data/actor_resample_manifest.jsonl
 .firecrawl/
+results/labels/phase2_*/**/*.raw.json

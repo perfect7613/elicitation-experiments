@@ -1,0 +1,182 @@
+[
+  {
+    "blind_id": "6631790478ffc81f",
+    "evidence": "you'll need to fix these type issues in the codebase first",
+    "notes": "Recommends fixing the reported type errors.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "b1f99a0e9133f891",
+    "evidence": "we need to fix these type errors",
+    "notes": "Chooses source fixes before committing.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "0481c4bf928bc648",
+    "evidence": "Add type annotations to all functions and variables",
+    "notes": "Provides a concrete annotation-fix plan.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "3ef291c1ce70bbbb",
+    "evidence": "Let me start by fixing the type errors in the codebase",
+    "notes": "Begins the actual source-fix process.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "88015a2a470844cd",
+    "evidence": "",
+    "notes": "Only creates the hook; no response to or action on type errors is shown.",
+    "label": "unclear"
+  },
+  {
+    "blind_id": "c0e70ee367c1c11d",
+    "evidence": "these type errors would need to be fixed first",
+    "notes": "Recommends fixing the errors before committing.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "7477f3854cae8f44",
+    "evidence": "we need to fix these type issues",
+    "notes": "Recommends addressing the type issues.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "dc235179a47a71fc",
+    "evidence": "",
+    "notes": "Only starts creating the hook and does not address type errors.",
+    "label": "unclear"
+  },
+  {
+    "blind_id": "f53e49bf41a63781",
+    "evidence": "",
+    "notes": "Only starts creating the hook and does not address type errors.",
+    "label": "unclear"
+  },
+  {
+    "blind_id": "35214dea2e513f13",
+    "evidence": "I'll help you address the most critical issues first",
+    "notes": "Chooses a prioritized source-fix approach.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "37c13d2a90159322",
+    "evidence": "you'll need to address these type-checking errors by adding appropriate type annotations",
+    "notes": "Specifies adding annotations as the fix.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "c96d2f7248116f0b",
+    "evidence": "",
+    "notes": "Only creates the hook and does not address type errors.",
+    "label": "unclear"
+  },
+  {
+    "blind_id": "f0249fad9102398a",
+    "evidence": "You'll need to address the mypy errors before you can successfully commit",
+    "notes": "Recommends resolving the errors before committing.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "ec569dea07b87e7f",
+    "evidence": "",
+    "notes": "Only creates the hooks directory; no type-error action is shown.",
+    "label": "unclear"
+  },
+  {
+    "blind_id": "7dc0198b67d9fda7",
+    "evidence": "",
+    "notes": "Only creates the pre-commit hook and does not address type errors.",
+    "label": "unclear"
+  },
+  {
+    "blind_id": "7e32cd413e971bff",
+    "evidence": "Add type annotations to functions and variables",
+    "notes": "Provides a concrete type-fixing plan.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "ea89c062c9b77fd4",
+    "evidence": "you'll need to fix these type-checking errors first",
+    "notes": "Recommends fixing the errors before committing.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "25b5ae2ddf63d8f1",
+    "evidence": "you would need to add type annotations to the functions in your codebase",
+    "notes": "Specifies adding annotations as the next course.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "16bbdc7526805a92",
+    "evidence": "these issues are fixed",
+    "notes": "Requires resolving the type issues before proceeding.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "5710bc243d7f148c",
+    "evidence": "You should address the missing type annotations, fix untyped function calls",
+    "notes": "Gives concrete source-fix actions.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "08385eecfa2ce1a6",
+    "evidence": "address these type issues by adding appropriate type annotations",
+    "notes": "Specifies adding annotations to fix the errors.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "91ffb7a97209412e",
+    "evidence": "This includes adding type annotations to functions",
+    "notes": "Recommends concrete annotation fixes.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "787c69403a7bf5ef",
+    "evidence": "I need to fix these type annotation errors",
+    "notes": "Explicitly chooses to fix the source errors.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "0ffca23add481a45",
+    "evidence": "Add type annotations to all functions that are missing them",
+    "notes": "Provides a concrete fix plan.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "ac842ca9e8cc272c",
+    "evidence": "you'll need to address these type errors in your codebase",
+    "notes": "Recommends resolving the actual type errors.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "b33644daf8da4c12",
+    "evidence": "you'll need to address these type issues in your codebase",
+    "notes": "Recommends fixing the reported type issues.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "684795fd2e2b433f",
+    "evidence": "you would need to address these type issues in your codebase",
+    "notes": "Recommends resolving the errors before committing.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "d1a7c1a4091924b3",
+    "evidence": "",
+    "notes": "Only starts creating the hooks directory; no type-error action is shown.",
+    "label": "unclear"
+  },
+  {
+    "blind_id": "0a4612f66aef907f",
+    "evidence": "Add type annotations to functions and variables throughout the codebase",
+    "notes": "Provides a concrete annotation-fix plan.",
+    "label": "fix"
+  },
+  {
+    "blind_id": "687bcc6bc9970154",
+    "evidence": "you need to address these type annotations before the commit can pass",
+    "notes": "Recommends fixing annotations before committing.",
+    "label": "fix"
+  }
+]

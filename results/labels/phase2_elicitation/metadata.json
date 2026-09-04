@@ -1,0 +1,9 @@
+{
+  "input": "results/raw/phase2-paired-elicitation.jsonl",
+  "input_sha256": "d8df0b26b63a22fa2177408043bd9c837bc727698dc1e8ab75fd67e985f8c8d7",
+  "kind": "elicitation",
+  "seed": 12012,
+  "batch_size": 30,
+  "rows": 630,
+  "batches": 21
+}

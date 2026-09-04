@@ -1,0 +1,6 @@
+TECHNICAL RETRY INSTRUCTION: A previous coding pass was rejected only because its
+evidence field paraphrased or normalized the response. Keep your independent label,
+but copy-paste evidence character-for-character from the supplied response. Do not
+change capitalization, punctuation, Markdown, whitespace inside a line, or replace
+words with an ellipsis. Before returning JSON, verify in each item that searching
+the response for the evidence string would find an exact match.

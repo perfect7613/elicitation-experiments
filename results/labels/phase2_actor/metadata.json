@@ -1,0 +1,9 @@
+{
+  "input": "results/raw/phase2-actor-resample.jsonl",
+  "input_sha256": "f25c91377de8500d9ed4795f2ae99c0951ccea3f9e0126cc8ff2b41803447c76",
+  "kind": "actor",
+  "seed": 12012,
+  "batch_size": 30,
+  "rows": 270,
+  "batches": 9
+}

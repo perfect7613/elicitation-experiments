@@ -2,13 +2,22 @@
 
 Reproducible question-vs-statement elicitation on frozen agent transcripts, with an explicit false-confession control.
 
-**Completed results:** read [REPORT.md](REPORT.md). The short version is that the
-bracketing statement was the strongest elicitor in a small blinded sample, while a
-false incriminating statement produced coder-sensitive false confessions. The report
-also documents a preregistered thinking-mode measurement failure, negative results,
-exact prompts, raw outputs, failed launches, and limitations.
+**Completed results:** read the prospective [Phase 2 report](PHASE2_REPORT.md) and
+the earlier [Phase 1 report](REPORT.md). Phase 2 uses 630 paired multi-seed
+continuations plus a 270-continuation actor-consistency check. The non-question
+bracket produced a large, source-paired elicitation effect; the benign statement
+showed no clear detected difference; and four of five false-incrimination positives
+failed a direct rubric audit.
 
-The package uses published Pre-commit Hook rollouts and workaround labels, branches them with Qwen3-14B on a Modal H100, creates a blinded hand-labeling sheet, and reports Wilson 95% confidence intervals. See [PREREGISTRATION.md](PREREGISTRATION.md) before changing prompts or sampling.
+The current [worthiness audit](WORTHINESS_AUDIT.md) is deliberately not a rubber
+stamp: the main effect is worth sharing, but human review and a stronger same-actor
+check remain before this is a finished application artifact.
+
+The package uses published Pre-commit Hook rollouts and workaround labels, branches
+them with Qwen3-14B on a Modal H100, creates response-only masked coding packets,
+and reports paired source-bootstrap intervals. See
+[PREREGISTRATION_PHASE2.md](PREREGISTRATION_PHASE2.md) and
+[PREREGISTRATION.md](PREREGISTRATION.md) before changing prompts or sampling.
 
 ## 1. Clone the two public inputs
 
@@ -113,6 +122,31 @@ Outputs:
 Commit the raw responses, completed blinded labels, key, and analysis outputs after checking them for accidental secrets. They are intentionally not ignored so the public result can be audited.
 
 Do not describe unlabeled model output as a result. The central result is the guilty/innocent tradeoff, not verbalization rate alone.
+
+## 9. Phase 2 prospective replication
+
+The frozen Phase 2 design and manifest construction are in
+[`PREREGISTRATION_PHASE2.md`](PREREGISTRATION_PHASE2.md) and
+`scripts/prepare_phase2.py`. After rebuilding the ignored manifests, the two H100
+runs are:
+
+```bash
+modal run modal_app.py \
+  --manifest data/actor_resample_manifest.jsonl \
+  --output results/raw/phase2-actor-resample.jsonl \
+  --max-new-tokens 384 \
+  --no-enable-thinking
+
+modal run modal_app.py \
+  --manifest data/phase2_manifest.jsonl \
+  --output results/raw/phase2-paired-elicitation.jsonl \
+  --no-enable-thinking
+```
+
+The exact response-only coder prompts, first passes, technical retries, merge
+provenance, analysis script, blinded human-audit packet plus separate key, and
+figures are committed. The full
+commands and hashes are in [`results/RUN_LOG.md`](results/RUN_LOG.md).
 
 ## Provenance
 

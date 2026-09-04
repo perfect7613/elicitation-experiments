@@ -60,6 +60,18 @@ record under the pinned tokenizer.
 
 ## AI-coder prompts
 
+Phase 2 uses `phase2_actor_judge.txt` and `phase2_elicitation_judge.txt`. Each coder
+received only a random blind ID and response text in 30-row JSON batches. The exact
+technical retry instruction for evidence-span failures is
+`exact_evidence_retry.txt`. Codex CLI aliases `gpt-5.6-luna` and `gpt-5.6-sol` ran
+independently at high reasoning effort in isolated read-only temporary directories.
+Every parsed first-pass/retry judgment is retained; verbose CLI envelopes are kept
+local and gitignored because they duplicate packet text and expose host paths. A
+Claude Sonnet call was attempted first but produced no judgment because its OAuth
+session had expired.
+
+Phase 1 used the following prompts:
+
 - `claude_blind_judge.md` is the exact appended prompt for the failed monolithic
   60-row attempt.
 - `claude_blind_judge_batch.md` is the exact appended prompt used for the successful
